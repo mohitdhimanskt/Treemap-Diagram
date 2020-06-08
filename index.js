@@ -24,4 +24,34 @@ const DATASETS = {
       
       document.getElementById("title").innerHTML = DATASET.TITLE;
       document.getElementById("description").innerHTML = DATASET.DESCRIPTION;
-        
+      var body = d3.select("body");
+
+      var tooltip = body.append("div").
+      attr("class", "tooltip").
+      attr("id", "tooltip").
+      style("opacity", 0);
+      
+      var svg = d3.select("#tree-map"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+      
+      var fader = function (color) {return d3.interpolateRgb(color, "#fff")(0.2);},
+      color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
+      format = d3.format(",d");
+
+      var treemap = d3.treemap().
+size([width, height]).
+paddingInner(1);
+
+d3.json(DATASET.FILE_PATH, function (error, data) {
+
+  if (error) throw error;
+
+  var root = d3.hierarchy(data).
+  eachBefore(function (d) {
+    d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name;
+  }).
+  sum(sumBySize).
+  sort(function (a, b) {return b.height - a.height || b.value - a.value;});
+
+  treemap(root);
