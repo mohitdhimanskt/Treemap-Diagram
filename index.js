@@ -116,3 +116,22 @@ d3.json(DATASET.FILE_PATH, function (error, data) {
   const LEGEND_TEXT_X_OFFSET = 3;
   const LEGEND_TEXT_Y_OFFSET = -2;
   var legendElemsPerRow = Math.floor(legendWidth / LEGEND_H_SPACING);
+  var legendElem = legend.
+  append("g").
+  attr("transform", "translate(60," + LEGEND_OFFSET + ")").
+  selectAll("g").
+  data(categories).
+  enter().append("g").
+  attr("transform", function (d, i) {
+    return 'translate(' +
+    i % legendElemsPerRow * LEGEND_H_SPACING + ',' + (
+    Math.floor(i / legendElemsPerRow) * LEGEND_RECT_SIZE + LEGEND_V_SPACING * Math.floor(i / legendElemsPerRow)) + ')';
+  });
+
+  legendElem.append("rect").
+  attr('width', LEGEND_RECT_SIZE).
+  attr('height', LEGEND_RECT_SIZE).
+  attr('class', 'legend-item').
+  attr('fill', function (d) {
+    return color(d);
+  });
