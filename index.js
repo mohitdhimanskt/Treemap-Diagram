@@ -135,3 +135,12 @@ d3.json(DATASET.FILE_PATH, function (error, data) {
   attr('fill', function (d) {
     return color(d);
   });
+  legendElem.append("text").
+  attr('x', LEGEND_RECT_SIZE + LEGEND_TEXT_X_OFFSET).
+  attr('y', LEGEND_RECT_SIZE + LEGEND_TEXT_Y_OFFSET).
+  text(function (d) {return d;});
+});
+
+function sumBySize(d) {
+  return d.value;
+}
