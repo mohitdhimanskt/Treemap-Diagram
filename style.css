@@ -38,3 +38,13 @@ div.tooltip {
     border-radius: 2px;            
     pointer-events: none; 
   }
+
+  #legend{
+    font-size: 15px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding-bottom: 5px;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
