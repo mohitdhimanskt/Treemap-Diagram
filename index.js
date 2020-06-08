@@ -93,3 +93,11 @@ d3.json(DATASET.FILE_PATH, function (error, data) {
   on("mouseout", function (d) {
     tooltip.style("opacity", 0);
   });
+  cell.append("text").
+  attr('class', 'tile-text').
+  selectAll("tspan").
+  data(function (d) {return d.data.name.split(/(?=[A-Z][^A-Z])/g);}).
+  enter().append("tspan").
+  attr("x", 4).
+  attr("y", function (d, i) {return 13 + i * 10;}).
+  text(function (d) {return d;});
